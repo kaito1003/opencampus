@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プリクラ風カメラ</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+</head>
+<body>
+  <audio id="bgm" src="sounds/prikura.wav" loop autoplay></audio>
+
+  <h1>- プリクラカメラ -</h1>
+
+  <div id="camera-container">
+    <video id="camera" autoplay playsinline></video>
+    <canvas id="photo"></canvas>
+    <div id="hearts"></div>
+    <div id="stars"></div>
+    <div id="frame"></div>
+    <div id="countdown"></div>
+  </div>
+
+
+  <div class="picture">
+    <button id="capture">📷 撮影</button>
+    <img id="preview" alt="撮影プレビュー" style="display:none; max-width:100%; margin-top:10px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.3);">
+<button id="downloadBtn" style="display:none;">OK!</button>
+
+  </div>
+  <div class="controls">
+    <h2>♦ Efects</h2>
+    <h4>Herts ♡</h4>
+    <button class="heart-btn selected" data-state="on">ON</button>
+    <button class="heart-btn" data-state="off">OFF</button>
+    <h4>Stars ☆</h4>
+    <button class="star-btn selected" data-state="on">ON</button>
+    <button class="star-btn" data-state="off">OFF</button>
+  </div>
+
+  <div class="frame-select">
+    <h2>🎞 Frames</h2>
+    <button data-frame="none" class="frame-btn selected">なし</button>
+    <button data-frame="Camellia_day1" class="frame-btn">Camellia_day1</button>
+    <button data-frame="Camellia_day2" class="frame-btn">Camellia_day2</button>
+    <button data-frame="neon" class="frame-btn">ネオン</button>
+    <button data-frame="sns" class="frame-btn">SNS風</button>
+    <button data-frame="pi" class="frame-btn">円周率</button>
+    <button data-frame="simple" class="frame-btn">シンプル</button>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <script src="hands_script.js"></script>
+</body>
+</html>
