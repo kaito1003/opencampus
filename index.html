@@ -10,7 +10,42 @@
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 </head>
 <body>
-  <audio id="bgm" src="sounds/prikura.wav" loop autoplay></audio>
+<!-- BGMオーディオ -->
+<audio id="bgm" src="sounds/prikura.wav" loop></audio>
+
+<!-- BGM再生/停止ボタン -->
+<button id="bgmButton" style="
+  position: fixed; top: 10px; right: 10px;
+  padding: 8px 12px; border-radius: 6px;
+  background-color: #ff6f91; color: white;
+  border: none; cursor: pointer;
+">BGM再生</button>
+
+<script>
+const bgm = document.getElementById('bgm');
+const bgmBtn = document.getElementById('bgmButton');
+
+// ページ読み込み時に確認ダイアログ
+window.addEventListener('load', () => {
+  const playBGM = confirm("BGMを再生しますか？");
+  if (playBGM) {
+    bgm.play().catch(() => {
+      alert("ブラウザの制限により自動再生できません。ボタンで再生してください。");
+    });
+  }
+});
+
+// ボタンで再生/停止切り替え
+bgmBtn.addEventListener('click', () => {
+  if (bgm.paused) {
+    bgm.play();
+    bgmBtn.textContent = "BGM停止";
+  } else {
+    bgm.pause();
+    bgmBtn.textContent = "BGM再生";
+  }
+});
+</script>
 
   <h1>- プリクラカメラ -</h1>
 
