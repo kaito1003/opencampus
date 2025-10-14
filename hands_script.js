@@ -61,7 +61,7 @@ window.addEventListener("DOMContentLoaded", () => {
     locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
   });
   hands.setOptions({
-    maxNumHands: 1,
+    maxNumHands: 2,
     modelComplexity: 1,
     minDetectionConfidence: 0.6,
     minTrackingConfidence: 0.6
@@ -81,22 +81,25 @@ window.addEventListener("DOMContentLoaded", () => {
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    if (results.multiHandLandmarks?.length > 0) {
-      const lm = results.multiHandLandmarks[0];
-      if (!lm) return;
-      const fingerTips = [4,8,12,16,20];
-      const fingerPips = [3,6,10,14,18];
-      let ext = 0;
-      for (let i=0;i<5;i++){
-        if(lm[fingerTips[i]].y < lm[fingerPips[i]].y-0.02) ext++;
-      }
-      if (ext>=4){
-        const cx = canvas.width * (1-lm[0].x);
-        const cy = canvas.height * lm[0].y;
-        if (Math.random() < 0.4) createHeart(cx, cy);
-      }
-      
+if (results.multiHandLandmarks?.length > 0) {
+  const fingerTips = [4,8,12,16,20];
+  const fingerPips = [3,6,10,14,18];
+
+  results.multiHandLandmarks.forEach(lm => {
+    let ext = 0;
+    for (let i = 0; i < 5; i++) {
+      if (lm[fingerTips[i]].y < lm[fingerPips[i]].y - 0.02) ext++;
     }
+
+    // 4本以上の指が伸びていたらハート生成
+    if (ext >= 4) {
+      const cx = canvas.width * (1 - lm[0].x);
+      const cy = canvas.height * lm[0].y;
+      if (Math.random() < 0.4) createHeart(cx, cy);
+    }
+  });
+}
+
   });
 
   faceMesh.onResults(results => {
