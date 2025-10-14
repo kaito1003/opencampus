@@ -27,7 +27,7 @@ const bgmBtn = document.getElementById('bgmButton');
 
 // ページ読み込み時に確認ダイアログ
 window.addEventListener('load', () => {
-  const playBGM = confirm("BGMを再生しますか？");
+  const playBGM = confirm("BGMが流れます");
   if (playBGM) {
     bgm.play().catch(() => {
       alert("ブラウザの制限により自動再生できません。ボタンで再生してください。");
